@@ -1,6 +1,7 @@
 package GPFinalProject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GPFinalProject 
 {
@@ -12,52 +13,91 @@ public class GPFinalProject
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		ArrayList<GPNode> gpCandidates = new ArrayList<GPNode>();
+		ArrayList<GPCandidate> gpCandidates = new ArrayList<GPCandidate>();
 
-		int numCandidates = 500;
-		
+		int numCandidates = 5000;
+		int maxNumberOfGenerations = 5000;
 		/* Create the candidates */
 		for (int i = 0; i < numCandidates; i++)
 		{
-			gpCandidates.add(GPNode.generateNode());
+			gpCandidates.add(new GPCandidate());
 		}
 		
 		/* Print them to console */
 		for (int i = 0; i < numCandidates; i++)
 		{
-			System.out.println(i + ":" + gpCandidates.get(i).GetGPString() );
+			System.out.println(i + ":" + gpCandidates.get(i).getTopNode().GetGPString() );
 		}
 		
-		/* Cross them over in order (just a robustness test, how this works to be changed later)*/
+		
+		double [] fitnessPoints = {-10.0, 0, 10, 25};
+		double [] expectedValues = new double[fitnessPoints.length];
+		
+		for (int i = 0; i < expectedValues.length; i++)
+		{
+			expectedValues[i] = (fitnessPoints[i]*fitnessPoints[i]) - 1;
+		}
+		
+		
+		for (int i = 0; i < maxNumberOfGenerations; i++)
+		{
+			for (int j = 0; j < numCandidates; j++)
+			{
+				double fitnessValue = gpCandidates.get(j).updateFitnessValue(fitnessPoints, expectedValues);
+				//System.out.println("Candidate " + j + " has fitness value: " + fitnessValue);
+				
+				if (fitnessValue < 1)
+				{
+					System.out.println("Generation:" + i + "; Candidate:" + j + ": Possible candidate found.  Error is: " + fitnessValue + " String is: " + gpCandidates.get(j).candidate.GetGPString());
+				}
+			}
+			
+			// Need to rank the candidates
+			Collections.sort(gpCandidates, new GPFitnessValueComparator());
+			
+			for (int j = 0; j < 4; j++)
+			{
+				int rand1 = Utilities.GetRandomNumber(0, 100);
+				int rand2 = Utilities.GetRandomNumber(0, 500);
+			
+				GPNode.crossOver(gpCandidates.get(rand1).getTopNode(), gpCandidates.get(rand2).getTopNode());
+			}
+			
+			int rand1 = Utilities.GetRandomNumber(0, numCandidates-1);
+			GPNode.mutate(gpCandidates.get(rand1).getTopNode());
+		}
+		
+/*		
+		// Cross them over in order (just a robustness test, how this works to be changed later)
 		for (int i = 0; i < numCandidates; i+=2)
 		{
 			GPNode.crossOver(gpCandidates.get(i), gpCandidates.get(i+1));
 		}
 		
-		/* Print crossed over candidates to console */
+		// Print crossed over candidates to console 
 		for (int i = 0; i < numCandidates; i++)
 		{
 			System.out.println(i + ":" + gpCandidates.get(i).GetGPString() );
 		}
 		
-		/* Mutate them (just a robustness test, how this works to be changed later)*/
+		// Mutate them (just a robustness test, how this works to be changed later)
 		for (int i = 0; i < numCandidates; i++)
 		{
 			GPNode.mutate(gpCandidates.get(i));
 		}
 		
-		/* Print mutated candidates to console */
+		// Print mutated candidates to console 
 		for (int i = 0; i < numCandidates; i++)
 		{
 			System.out.println(i + ":" + gpCandidates.get(i).GetGPString() );
 		}
 		
-		/* Evaluation their fitness for a single value (just a demonstration on how to do it, to be changed later) */
+		// Evaluation their fitness for a single value (just a demonstration on how to do it, to be changed later) 
 		for (int i = 0; i < numCandidates; i++)
 		{
 			System.out.println(i + ":" + gpCandidates.get(i).EvaluateFitnessValue(20));
 		}
-		
+*/		
 		
 		
 		

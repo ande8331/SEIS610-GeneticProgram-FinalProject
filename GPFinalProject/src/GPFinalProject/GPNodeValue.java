@@ -1,5 +1,7 @@
 package GPFinalProject;
 
+import java.text.NumberFormat;
+
 public class GPNodeValue extends GPNode 
 {
 
@@ -49,7 +51,9 @@ public class GPNodeValue extends GPNode
         }
         else
         {
-        	return Double.toString(m_numericValue);
+        	NumberFormat nf = NumberFormat.getIntegerInstance();
+        	return nf.format(m_numericValue);
+        	//return Double.toString(m_numericValue);
         }
     }
 
