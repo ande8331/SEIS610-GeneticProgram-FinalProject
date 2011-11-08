@@ -4,6 +4,14 @@ import java.util.Comparator;
 
 class GPFitnessValueComparator implements Comparator<GPCandidate> {
     public int compare(GPCandidate gp1, GPCandidate gp2) { 
+    	 if (Double.isNaN(gp1.getFitnessValue()))
+		 {
+    		 return 1;
+		 }
+    	 if (Double.isNaN(gp2.getFitnessValue()))
+		 {
+    		 return -1;
+		 }
          if (gp1.getFitnessValue() < gp2.getFitnessValue()) return -1;
          if (gp1.getFitnessValue() > gp2.getFitnessValue()) return 1;
          return 0;
