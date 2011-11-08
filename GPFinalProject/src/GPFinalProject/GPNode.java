@@ -70,7 +70,7 @@ public class GPNode
 		}
 	}    
     
-	public static void crossOver(GPNode g1, GPNode g2)
+	public static void crossoverNodes(GPNode g1, GPNode g2)
 	{
 		// Pull random numbers for each to select which node to move
 		int g1NodeID = Utilities.GetRandomNumber(1, g1.GetGPNodeCount());
@@ -178,7 +178,7 @@ public class GPNode
 		}			
 	}
 	
-	public static void mutate(GPNode g1)
+	public static void mutateNodes(GPNode g1)
 	{
 		int g1NodeID = Utilities.GetRandomNumber(1, g1.GetGPNodeCount());
 		

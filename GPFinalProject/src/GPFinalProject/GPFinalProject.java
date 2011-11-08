@@ -70,13 +70,13 @@ public class GPFinalProject
 				int rand1 = Utilities.GetRandomNumber(0, 1000);
 				int rand2 = Utilities.GetRandomNumber(0, 4000);
 			
-				GPNode.crossOver(gpCandidates.get(rand1).getTopNode(), gpCandidates.get(rand2).getTopNode());
+				GPNode.crossoverNodes(gpCandidates.get(rand1).getTopNode(), gpCandidates.get(rand2).getTopNode());
 				gpCandidates.get(rand1).updateFitnessValue(fitnessPoints, expectedValues);
 				gpCandidates.get(rand2).updateFitnessValue(fitnessPoints, expectedValues);
 			}
 			
 			int rand1 = Utilities.GetRandomNumber(0, numCandidates-1);
-			GPNode.mutate(gpCandidates.get(rand1).getTopNode());
+			GPNode.mutateNodes(gpCandidates.get(rand1).getTopNode());
 			gpCandidates.get(rand1).updateFitnessValue(fitnessPoints, expectedValues);
 		}
 		
