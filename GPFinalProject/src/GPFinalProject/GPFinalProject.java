@@ -15,15 +15,27 @@ public class GPFinalProject
 
 		ArrayList<GPCandidate> gpCandidates = new ArrayList<GPCandidate>();
 
-		int numCandidates = 5000;
-		int maxNumberOfGenerations = 50000;
+		int numCandidates = 1000;
+		int maxNumberOfGenerations = 500000;
 		
-		double [] fitnessPoints = {-5000, -10.0, 0, 10, 25, 101};
-		double [] expectedValues = new double[fitnessPoints.length];
+		double crossoverHighProbabilityCrossPoint = 0.10;
+		double crossoverHighProbabilityRate = 0.90;
+		double crossoverRate = 0.20;
+		
+		double mutationHighProbabilityCrossPoint = 0.50;
+		double mutationHighProbabilityRate = 0.50;
+		double mutationRate = 0.05;
+		
+		double naturalSelectionHighProbabilityCrossPoint = 0.90;
+		double naturalSelectionHighProbabilityRate = 0.90;
+		double naturalSelectionRate = 0.000001;
+		
+		double [] trainingData = {-5000, -100, -10.0, 0, 10, 25, 100, 5000};
+		double [] expectedValues = new double[trainingData.length];
 		
 		for (int i = 0; i < expectedValues.length; i++)
 		{
-			expectedValues[i] = (fitnessPoints[i]*fitnessPoints[i]) - 1;
+			expectedValues[i] =  (trainingData[i]*trainingData[i]) - 1;
 		}
 		
 		
@@ -31,89 +43,112 @@ public class GPFinalProject
 		for (int i = 0; i < numCandidates; i++)
 		{
 			gpCandidates.add(new GPCandidate());
-			double fitnessValue = gpCandidates.get(i).updateFitnessValue(fitnessPoints, expectedValues);
+			gpCandidates.get(i).updateFitnessValue(trainingData, expectedValues);
 		}
 		
 		/* Print them to console */
-		for (int i = 0; i < numCandidates; i++)
+		for (int i = 0; i < gpCandidates.size(); i++)
 		{
 			System.out.println(i + ":" + gpCandidates.get(i).getTopNode().GetGPString() );
 		}
 		
-		
-
-		
+		// When the numbers get small enough the carryovers allow us to meet our required rates when round off errors could happen
+		double crossoverCarryOver = 0.0;
+		double mutationCarryOver = 0.0;
+		double naturalSelectionCarryOver = 0.0;
 		
 		for (int i = 0; i < maxNumberOfGenerations; i++)
-		{
-			for (int j = 0; j < numCandidates; j++)
-			{
-				//double fitnessValue = gpCandidates.get(j).updateFitnessValue(fitnessPoints, expectedValues);
-				//System.out.println("Candidate " + j + " has fitness value: " + fitnessValue);
-				
-				double fitnessValue = gpCandidates.get(j).getFitnessValue();
-				if (fitnessValue < 0.01)
-				{
-					System.out.println("Generation:" + i + "; Candidate:" + j + ": Possible candidate found.  Error is: " + fitnessValue + " String is: " + gpCandidates.get(j).candidate.GetGPString());
-					return;
-				}
-			}
-			
-			// Print out the best one we have
-			System.out.println("Best fitness value of generation: " + i + " is: " + gpCandidates.get(0).getFitnessValue() + "; Candidate is: " + gpCandidates.get(0).getTopNode().GetGPString());
-			
+		{			
 			// Need to rank the candidates
 			Collections.sort(gpCandidates, new GPFitnessValueComparator());
+
+			// Print out the best one we have
+			System.out.println("(" + gpCandidates.size() + ") Best fitness value of generation: " + i + " is: " + gpCandidates.get(0).getFitnessValue() + "; Candidate is: " + gpCandidates.get(0).getTopNode().GetGPString());
+
 			
-			for (int j = 0; j < 5; j++)
+			double fitnessValue = gpCandidates.get(0).getFitnessValue();
+			if (fitnessValue < 0.000001)
 			{
-				int rand1 = Utilities.GetRandomNumber(0, 1000);
-				int rand2 = Utilities.GetRandomNumber(0, 4000);
+				System.out.println("Generation:" + i + ": Candidate found.  Error is: " + fitnessValue + " String is: " + gpCandidates.get(0).candidate.GetGPString());
+				return;
+			}			
+	
+			naturalSelectionCarryOver += gpCandidates.size() * naturalSelectionRate;
+			int numNaturalSelections = (int) Math.floor(naturalSelectionCarryOver);
+			naturalSelectionCarryOver -= (double) numNaturalSelections;
 			
-				GPNode.crossoverNodes(gpCandidates.get(rand1).getTopNode(), gpCandidates.get(rand2).getTopNode());
-				gpCandidates.get(rand1).updateFitnessValue(fitnessPoints, expectedValues);
-				gpCandidates.get(rand2).updateFitnessValue(fitnessPoints, expectedValues);
+			/* Natural Selection */
+			for (int j = 0; j < numNaturalSelections; j++)
+			{
+				double hp = Utilities.GetRandomDouble();
+				
+				int minimum = 0;
+				int maximum = (int) (naturalSelectionHighProbabilityCrossPoint * gpCandidates.size());
+				if (hp > naturalSelectionHighProbabilityRate)
+				{
+					minimum = maximum + 1;
+					maximum = gpCandidates.size()-1;
+				}
+					
+				int rand1 = Utilities.GetRandomNumber(minimum, maximum);
+				gpCandidates.remove(rand1);
 			}
 			
-			int rand1 = Utilities.GetRandomNumber(0, numCandidates-1);
-			GPNode.mutateNodes(gpCandidates.get(rand1).getTopNode());
-			gpCandidates.get(rand1).updateFitnessValue(fitnessPoints, expectedValues);
-		}
-		
-/*		
-		// Cross them over in order (just a robustness test, how this works to be changed later)
-		for (int i = 0; i < numCandidates; i+=2)
-		{
-			GPNode.crossOver(gpCandidates.get(i), gpCandidates.get(i+1));
-		}
-		
-		// Print crossed over candidates to console 
-		for (int i = 0; i < numCandidates; i++)
-		{
-			System.out.println(i + ":" + gpCandidates.get(i).GetGPString() );
-		}
-		
-		// Mutate them (just a robustness test, how this works to be changed later)
-		for (int i = 0; i < numCandidates; i++)
-		{
-			GPNode.mutate(gpCandidates.get(i));
-		}
-		
-		// Print mutated candidates to console 
-		for (int i = 0; i < numCandidates; i++)
-		{
-			System.out.println(i + ":" + gpCandidates.get(i).GetGPString() );
-		}
-		
-		// Evaluation their fitness for a single value (just a demonstration on how to do it, to be changed later) 
-		for (int i = 0; i < numCandidates; i++)
-		{
-			System.out.println(i + ":" + gpCandidates.get(i).EvaluateFitnessValue(20));
-		}
-*/		
-		
-		
-		
+			
+			/* Crossover */
+			crossoverCarryOver += gpCandidates.size() * crossoverRate;
+			int numCrossovers = (int) Math.floor(crossoverCarryOver);
+			crossoverCarryOver -= (double) numCrossovers;
+			for (int j = 0; j < numCrossovers; j++)
+			{
+				double hp = Utilities.GetRandomDouble();
+				
+				int minimum = 0;
+				int maximum = (int) (crossoverHighProbabilityCrossPoint * gpCandidates.size());
+				if (hp > crossoverHighProbabilityRate)
+				{
+					minimum = maximum + 1;
+					maximum = gpCandidates.size()-1;
+				}
+					
+				int rand1 = Utilities.GetRandomNumber(minimum, maximum);
+				
+				hp = Utilities.GetRandomDouble();
+				minimum = 0;
+				maximum = (int) (crossoverHighProbabilityCrossPoint * gpCandidates.size());
+				if (hp > crossoverHighProbabilityRate)
+				{
+					minimum = maximum + 1;
+					maximum = gpCandidates.size()-1;
+				}
+				int rand2 = Utilities.GetRandomNumber(minimum, maximum);
+			
+				GPNode.crossoverNodes(gpCandidates.get(rand1).getTopNode(), gpCandidates.get(rand2).getTopNode());
+				gpCandidates.get(rand1).updateFitnessValue(trainingData, expectedValues);
+				gpCandidates.get(rand2).updateFitnessValue(trainingData, expectedValues);
+			}
+			
+			/* Mutation */
+			mutationCarryOver += gpCandidates.size() * mutationRate;
+			int numMutations = (int) Math.floor(mutationCarryOver);
+			mutationCarryOver -= (double) numMutations;
+			for (int j = 0; j < numMutations; j++)
+			{
+				double hp = Utilities.GetRandomDouble();
+				
+				int minimum = 0;
+				int maximum = (int) (mutationHighProbabilityCrossPoint * gpCandidates.size());
+				if (hp > mutationHighProbabilityRate)
+				{
+					minimum = maximum + 1;
+					maximum = gpCandidates.size()-1;
+				}
+					
+				int rand1 = Utilities.GetRandomNumber(minimum, maximum);
+				GPNode.mutateNodes(gpCandidates.get(rand1).getTopNode());
+				gpCandidates.get(rand1).updateFitnessValue(trainingData, expectedValues);
+			}
+		}		
 		
 /*		
 //		Code to manually generate a tree
