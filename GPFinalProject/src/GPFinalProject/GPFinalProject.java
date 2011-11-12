@@ -149,59 +149,5 @@ public class GPFinalProject
 				gpCandidates.get(rand1).updateFitnessValue(trainingData, expectedValues);
 			}
 		}		
-		
->>>>>>> origin/master
-/*		
-//		Code to manually generate a tree
-		GPNodeValue leftBranchLeftValue = new GPNodeValue(5.0);
-		GPNodeValue leftBranchRightValue = new GPNodeValue(-7.0);
-		GPNodeOperator leftBranch = new GPNodeOperator("/", leftBranchLeftValue, leftBranchRightValue);
-		GPNodeValue rightBranchLeftValue = new GPNodeValue("X");
-		GPNodeValue rightBranchRightValue = new GPNodeValue(9);
-		GPNodeOperator rightBranch = new GPNodeOperator("-", rightBranchLeftValue, rightBranchRightValue);
-		GPNodeOperator treeTop = new GPNodeOperator("+", leftBranch, rightBranch);
-*/
-/*
-		// Setup some trees and test the crossover/mutate on them
-		GPNode treeTop = GPNode.generateNode();
-		
-		System.out.println("Depth: " + treeTop.GetGPDepth());
-		System.out.println("Node Count: " + treeTop.GetGPNodeCount());
-		System.out.println("Print String: " + treeTop.GetGPString());
-		System.out.println("Evaluated for X=20: " + treeTop.EvaluateFitnessValue(20));
-		GPNode treeTop2 = GPNode.generateNode();
-*/      
-		/*
-		GPNode g1 = treeTop.FindNodeReferenceById(0, treeTop.GetGPNodeCount() >> 1);
-		System.out.println(treeTop.GetGPNodeCount() >> 1);
-		System.out.println("Found node: " + g1.GetGPString());
-		*/
-
-
-/*		
-		// Test Crossover and mutate
-		System.out.println("*** Crossover Strings Below ***");
-		System.out.println("Print String: " + treeTop.GetGPString());
-		System.out.println("Print String: " + treeTop2.GetGPString());		
-		GPNode.crossOver(treeTop, treeTop2);		
-		System.out.println("Print String: " + treeTop.GetGPString());
-		System.out.println("Print String: " + treeTop2.GetGPString());	
-		
-		
-		System.out.println("*** Mutate String Below ***");
-		System.out.println("Print String: " + treeTop.GetGPString());
-		GPNode.mutate(treeTop);
-		System.out.println("Depth: " + treeTop.GetGPDepth());
-		System.out.println("Node Count: " + treeTop.GetGPNodeCount());
-		System.out.println("Print String: " + treeTop.GetGPString());
-*/      
-/*		
-//		Checkout for the random number generator
-		for (int i = 0; i < 20; i++)
-		{
-			System.out.println(Utilities.GetRandomNumber(6, 14));
-		}
-*/      
 	}
-
 }
