@@ -12,26 +12,73 @@ public class GPFinalProject
 
 	public static void main(String[] args)
 	{
-		// TODO Auto-generated method stub
+		// Default Config Numbers, if config file is found these will be overwritten
+		int numCandidates = 1000;
+		int maxNumberOfGenerations = 500000;		
 
+		double crossoverHighProbabilityCrossPoint = 0.11;
+		double crossoverHighProbabilityRate = 0.91;
+		double crossoverRate = 0.21;
+		
+		double mutationHighProbabilityCrossPoint = 0.51;
+		double mutationHighProbabilityRate = 0.51;
+		double mutationRate = 0.051;
+		
+		double naturalSelectionHighProbabilityCrossPoint = 0.91;
+		double naturalSelectionHighProbabilityRate = 0.91;
+		double naturalSelectionRate = 0.000002;
+
+		double [] trainingData = {-5000, -100, -10.0, 0, 10, 25, 100, 5000};
+		
+		// TODO Auto-generated method stub
+		Config myConfig = new Config();
+		
+		try
+		{
+			myConfig.initializeData("/Users/ross/St Thomas/SEIS610/GPFinalProject/GPFinalProject/src/GPFinalProject/GP_Config.txt", "=");
+//			myConfig.initializeData("GP_Config.txt", "=");
+			
+			numCandidates = myConfig.getInitialPopulationSize();
+			maxNumberOfGenerations = myConfig.getMaxGenerationCount();
+			crossoverHighProbabilityCrossPoint = 0.01 * myConfig.getCrossOverHighProbabilityPoint();
+			crossoverHighProbabilityRate = 0.01 * myConfig.getCrossOverHighProbabilityRate();
+			crossoverRate = 0.01 * myConfig.getCrossOverRate();
+			mutationHighProbabilityCrossPoint = 0.01 * myConfig.getMutationHighProbabilityCrossPoint();
+			mutationHighProbabilityRate = 0.01 * myConfig.getMutationHighProbabilityRate();
+			mutationRate = 0.01 * myConfig.getMutationRate();
+			naturalSelectionHighProbabilityCrossPoint = 0.01 * myConfig.getNaturalSelectionProbabilityCrossOverPoint();
+			naturalSelectionHighProbabilityRate = 0.01 * myConfig.getNaturalSelectionProbabilityCrossOverRate();
+			naturalSelectionRate = 0.01 * myConfig.getNaturalSelectionRate();
+		}
+		catch (Exception e)
+		{
+			
+		}
+		
+		// Output Config Data
+		System.out.println("*** CONFIG DATA BEING USED ***");
+		System.out.println("Number of Initial Candidates:     " + numCandidates);
+		System.out.println("Maximum Number of Generations:    " + maxNumberOfGenerations);
+		System.out.println("Crossover High Probability Point: " + crossoverHighProbabilityCrossPoint);
+		System.out.println("Crossover High Probability Rate:  " + crossoverHighProbabilityRate);
+		System.out.println("Crossover Rate                    " + crossoverRate);
+		System.out.println("Mutation High Probability Point:  " + mutationHighProbabilityCrossPoint);
+		System.out.println("Mutation High Probability Rate:   " + mutationHighProbabilityRate);
+		System.out.println("Mutation Rate:                    " + mutationRate);
+		System.out.println("Natural Select High Prob Point:   " + naturalSelectionHighProbabilityCrossPoint);
+		System.out.println("Natural Select High Prob Rate:    " + naturalSelectionHighProbabilityRate);
+		System.out.println("Natural Selection Rate:           " + naturalSelectionRate);		
+		
+				
+		
+		
 		ArrayList<GPCandidate> gpCandidates = new ArrayList<GPCandidate>();
 
-		int numCandidates = 1000;
-		int maxNumberOfGenerations = 500000;
+
 		
-		double crossoverHighProbabilityCrossPoint = 0.10;
-		double crossoverHighProbabilityRate = 0.90;
-		double crossoverRate = 0.20;
 		
-		double mutationHighProbabilityCrossPoint = 0.50;
-		double mutationHighProbabilityRate = 0.50;
-		double mutationRate = 0.05;
 		
-		double naturalSelectionHighProbabilityCrossPoint = 0.90;
-		double naturalSelectionHighProbabilityRate = 0.90;
-		double naturalSelectionRate = 0.000001;
-		
-		double [] trainingData = {-5000, -100, -10.0, 0, 10, 25, 100, 5000};
+
 		double [] expectedValues = new double[trainingData.length];
 		
 		for (int i = 0; i < expectedValues.length; i++)
