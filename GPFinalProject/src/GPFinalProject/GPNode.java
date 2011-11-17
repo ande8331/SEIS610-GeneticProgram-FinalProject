@@ -2,6 +2,12 @@ package GPFinalProject;
 
 public class GPNode
 {
+	public static int operator_probability = 15;
+	public static int operand_x_probability = 90;
+	public static int random_value_minimum = 0;
+	public static int random_value_maximum = 26;
+	public static int maximum_tree_depth = 2;
+	
 	public GPNode()
 	{
 	}
@@ -38,12 +44,12 @@ public class GPNode
 	}
 	private static GPNode generateNode(int depth)
 	{
-		int num = Utilities.GetRandomNumber(0, 10);
+		int num = Utilities.GetRandomNumber(0, 99);
 		// num < 8 to cause 80% probability of an operator, but don't let the tree get more than 6 levels deep
 		// Force the first node to always be an operator
 
 		// TODO: Add requirement to make first node an operator
-		if ( ((num < 5) && (depth < 6)) || (depth == 0) )
+		if ( ((num < operator_probability) && (depth < maximum_tree_depth)) || (depth == 0) )
 		{
 			GPNode left = generateNode(depth + 1);
 			GPNode right = generateNode(depth + 1);
@@ -54,15 +60,15 @@ public class GPNode
 		} 
 		else
 		{
-			num = Utilities.GetRandomNumber(0, 9);
+			num = Utilities.GetRandomNumber(0, 99);
 
-			if ( num < 2 )
+			if ( num < operand_x_probability )
 			{
 				GPNodeValue myNode = new GPNodeValue("X");
 				return(myNode);
 			} else
 			{
-				num = Utilities.GetRandomNumber(1, 10);
+				num = Utilities.GetRandomNumber(random_value_minimum, random_value_maximum);
 				GPNodeValue myNode = new GPNodeValue(num);
 				return(myNode);
 			}

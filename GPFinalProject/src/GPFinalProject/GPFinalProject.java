@@ -49,6 +49,11 @@ public class GPFinalProject
 			naturalSelectionHighProbabilityCrossPoint = 0.01 * myConfig.getNaturalSelectionProbabilityCrossOverPoint();
 			naturalSelectionHighProbabilityRate = 0.01 * myConfig.getNaturalSelectionProbabilityCrossOverRate();
 			naturalSelectionRate = 0.01 * myConfig.getNaturalSelectionRate();
+			GPNode.operator_probability = myConfig.getOperatorProbability();
+			GPNode.operand_x_probability = myConfig.getVariableXProbability();
+			GPNode.random_value_minimum = myConfig.getRandomMinimum();
+			GPNode.random_value_maximum = myConfig.getRandomMaximum();
+			GPNode.maximum_tree_depth = myConfig.getMaxInitialDepth();
 		}
 		catch (Exception e)
 		{
@@ -68,16 +73,13 @@ public class GPFinalProject
 		System.out.println("Natural Select High Prob Point:   " + naturalSelectionHighProbabilityCrossPoint);
 		System.out.println("Natural Select High Prob Rate:    " + naturalSelectionHighProbabilityRate);
 		System.out.println("Natural Selection Rate:           " + naturalSelectionRate);		
-		
-				
-		
+		System.out.println("Operator Probability:             " + GPNode.operator_probability);
+		System.out.println("Operand X Probability:            " + GPNode.operand_x_probability);
+		System.out.println("Constant Minimum Value:           " + GPNode.random_value_minimum);
+		System.out.println("Constant Maximum Value:           " + GPNode.random_value_maximum);
+		System.out.println("Maximum Initial Tree Depth:       " + GPNode.maximum_tree_depth);
 		
 		ArrayList<GPCandidate> gpCandidates = new ArrayList<GPCandidate>();
-
-
-		
-		
-		
 
 		double [] expectedValues = new double[trainingData.length];
 		
@@ -110,13 +112,13 @@ public class GPFinalProject
 			Collections.sort(gpCandidates, new GPFitnessValueComparator());
 
 			// Print out the best one we have
-			System.out.println("(" + gpCandidates.size() + ") Best fitness value of generation: " + i + " is: " + gpCandidates.get(0).getFitnessValue() + "; Candidate is: " + gpCandidates.get(0).getTopNode().GetGPString());
+			System.out.println(/*"(" + gpCandidates.size() + ")*/ "Best fitness value of generation: " + i + " is: " + gpCandidates.get(0).getFitnessValue() + "; Candidate is: " + gpCandidates.get(0).getTopNode().GetGPString());
 
 			
 			double fitnessValue = gpCandidates.get(0).getFitnessValue();
 			if (fitnessValue < 0.000001)
 			{
-				System.out.println("Generation:" + i + ": Candidate found.  Error is: " + fitnessValue + " String is: " + gpCandidates.get(0).candidate.GetGPString());
+				System.out.println("Generation:" + i + ": Candidate found!  Error is: " + fitnessValue + " String is: " + gpCandidates.get(0).candidate.GetGPString());
 				return;
 			}			
 	
@@ -195,6 +197,9 @@ public class GPFinalProject
 				GPNode.mutateNodes(gpCandidates.get(rand1).getTopNode());
 				gpCandidates.get(rand1).updateFitnessValue(trainingData, expectedValues);
 			}
-		}		
+		}	
+		
+		System.out.println("Maximum number of generations reached.  No candidate found.");
+		return;
 	}
 }

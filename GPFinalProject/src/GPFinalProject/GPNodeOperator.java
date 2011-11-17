@@ -2,7 +2,6 @@ package GPFinalProject;
 
 public class GPNodeOperator extends GPNode 
 {
-
 	protected GPNode m_left;
 	protected GPNode m_right;
 	protected String m_operator;
