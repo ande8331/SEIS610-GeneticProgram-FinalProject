@@ -11,7 +11,7 @@ public class GPFinalProject
 	 */
 
 	public static void main(String[] args)
-	{
+	{		
 		// Default Config Numbers, if config file is found these will be overwritten
 		int numCandidates = 1000;
 		int maxNumberOfGenerations = 500000;		
@@ -35,7 +35,7 @@ public class GPFinalProject
 		
 		try
 		{
-			myConfig.initializeData("/Users/ross/St Thomas/SEIS610/GPFinalProject/GPFinalProject/src/GPFinalProject/GP_Config.txt", "=");
+			myConfig.initializeData("GP_Config.txt", "=");
 //			myConfig.initializeData("GP_Config.txt", "=");
 			
 			numCandidates = myConfig.getInitialPopulationSize();
