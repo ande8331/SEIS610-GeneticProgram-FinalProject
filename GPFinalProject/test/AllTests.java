@@ -4,7 +4,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ GPNodeValueTest.class, GPNodeOperatorTest.class })
+@SuiteClasses({ GPNodeValueTest.class, GPNodeOperatorTest.class, GPConfigTest.class })
 public class AllTests {
 
 }
