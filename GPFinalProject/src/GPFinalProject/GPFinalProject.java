@@ -28,7 +28,7 @@ public class GPFinalProject
 		double naturalSelectionHighProbabilityRate = 0.91;
 		double naturalSelectionRate = 0.000002;
 
-		double [] trainingData = {-5000, -100, -10.0, 0, 10, 25, 100, 5000};
+		double [] trainingData = {-500, -100, -10.0, 0, 10, 25, 100, 500};
 		
 		// TODO Auto-generated method stub
 		Config myConfig = new Config();
@@ -36,7 +36,6 @@ public class GPFinalProject
 		try
 		{
 			myConfig.initializeData("GP_Config.txt", "=");
-//			myConfig.initializeData("GP_Config.txt", "=");
 			
 			numCandidates = myConfig.getInitialPopulationSize();
 			maxNumberOfGenerations = myConfig.getMaxGenerationCount();
@@ -81,12 +80,18 @@ public class GPFinalProject
 		
 		ArrayList<GPCandidate> gpCandidates = new ArrayList<GPCandidate>();
 
-		double [] expectedValues = new double[trainingData.length];
+		System.out.println("");
+		System.out.println("***Training Data***");
 		
+		double [] expectedValues = new double[trainingData.length];		
 		for (int i = 0; i < expectedValues.length; i++)
 		{
 			expectedValues[i] =  (trainingData[i]*trainingData[i]) - 1;
+			System.out.println("X value: " + trainingData[i] + "; Output:" + expectedValues[i]);
 		}
+		
+		System.out.println("");
+		System.out.println("***Training Data***");
 		
 		/* Create the candidates */
 		for (int i = 0; i < numCandidates; i++)
