@@ -1,7 +1,5 @@
 import static org.junit.Assert.*;
 
-import java.io.File;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,7 +39,6 @@ public class GPConfigTest {
 		assertEquals(5, _config.getListOfTrainingData());
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetMutationRate() {
 		double rate = 3.6;
@@ -53,14 +50,12 @@ public class GPConfigTest {
 		assertEquals(95, _config.getMutationHighProbabilityCrossPoint(), 0.0001);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetMutationHighProbabilityRate() {
 		double rate = 2.5;
 		assertEquals(rate, _config.getMutationHighProbabilityRate(), 0.0001);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetCrossOverRate() {
 		double rate = 3.2;
@@ -72,13 +67,11 @@ public class GPConfigTest {
 		assertEquals(55, _config.getCrossOverHighProbabilityPoint(), 0.0001);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetCrossOverHighProbabilityRate() {
 		assertEquals(3.5, _config.getCrossOverHighProbabilityRate(), 0.0001);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetNaturalSelectionRate() {
 		assertEquals(3.8, _config.getNaturalSelectionRate(), 0.0001);
@@ -89,7 +82,6 @@ public class GPConfigTest {
 		assertEquals(25, _config.getNaturalSelectionProbabilityCrossOverPoint(), 0.0001);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetNaturalSelectionProbabilityCrossOverRate() {
 		double rate = 2.8;
