@@ -116,6 +116,12 @@ public class GPFinalProject
 			// Need to rank the candidates
 			Collections.sort(gpCandidates, new GPFitnessValueComparator());
 
+			if (gpCandidates.size() <= 0)
+			{
+				System.out.println("All candidates have been removed through natural selection.");
+				return;
+			}
+			
 			// Print out the best one we have
 			System.out.println(/*"(" + gpCandidates.size() + ")*/ "Best fitness value of generation: " + i + " is: " + gpCandidates.get(0).getFitnessValue() + "; Candidate is: " + gpCandidates.get(0).getTopNode().GetGPString());
 
@@ -130,7 +136,7 @@ public class GPFinalProject
 			naturalSelectionCarryOver += gpCandidates.size() * naturalSelectionRate;
 			int numNaturalSelections = (int) Math.floor(naturalSelectionCarryOver);
 			naturalSelectionCarryOver -= (double) numNaturalSelections;
-			
+NATURAL_SELECTION_BREAKPOINT:			
 			/* Natural Selection */
 			for (int j = 0; j < numNaturalSelections; j++)
 			{
@@ -153,6 +159,7 @@ public class GPFinalProject
 			crossoverCarryOver += gpCandidates.size() * crossoverRate;
 			int numCrossovers = (int) Math.floor(crossoverCarryOver);
 			crossoverCarryOver -= (double) numCrossovers;
+CROSSOVER_BREAKPOINT:			
 			for (int j = 0; j < numCrossovers; j++)
 			{
 				double hp = Utilities.GetRandomDouble();
@@ -186,6 +193,7 @@ public class GPFinalProject
 			mutationCarryOver += gpCandidates.size() * mutationRate;
 			int numMutations = (int) Math.floor(mutationCarryOver);
 			mutationCarryOver -= (double) numMutations;
+MUTATION_BREAKPOINT:			
 			for (int j = 0; j < numMutations; j++)
 			{
 				double hp = Utilities.GetRandomDouble();
