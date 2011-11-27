@@ -19,7 +19,7 @@ class GPFitnessValueComparator implements Comparator<GPCandidate> {
 }
 
 public class GPCandidate {
-	protected GPNode candidate;
+	public GPNode candidate;
 	protected double fitnessValue;
 
 	public GPCandidate()
