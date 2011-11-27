@@ -125,7 +125,7 @@ public class GPFinalProject
 			// Print out the best one we have
 			System.out.println(/*"(" + gpCandidates.size() + ")*/ "Best fitness value of generation: " + i + " is: " + gpCandidates.get(0).getFitnessValue() + "; Candidate is: " + gpCandidates.get(0).getTopNode().GetGPString());
 
-			
+//CANDIDATE_FOUND_BREAKPOINT:			
 			double fitnessValue = gpCandidates.get(0).getFitnessValue();
 			if (fitnessValue < 0.000001)
 			{
@@ -149,8 +149,9 @@ NATURAL_SELECTION_BREAKPOINT:
 					minimum = maximum + 1;
 					maximum = gpCandidates.size()-1;
 				}
-					
+				
 				int rand1 = Utilities.GetRandomNumber(minimum, maximum);
+//NS_DELETE_BREAKPOINT:
 				gpCandidates.remove(rand1);
 			}
 			

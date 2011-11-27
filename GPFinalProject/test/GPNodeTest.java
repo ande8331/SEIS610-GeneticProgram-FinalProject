@@ -8,14 +8,10 @@ import GPFinalProject.GPNodeValue;
 
 
 public class GPNodeTest {
-
 	@Test
-	public void testGPNode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	// GP-TST-12
+	// GP-TST-13
+	// GP-TST-14
+	// GP-TST-15
 	public void testEvaluateFitnessValue() {
 		GPNodeValue leftleft = new GPNodeValue(1);
 		GPNodeValue leftright = new GPNodeValue(2);
@@ -93,33 +89,54 @@ public class GPNodeTest {
 	}
 	
 	@Test
-	public void testGetGPNodeCount() {
-		fail("Not yet implemented");
+	public void testMutation() {
+		System.out.println("***Begin Test Mutation***");
+		GPNodeValue left1 = new GPNodeValue(1);
+		GPNodeValue right1 = new GPNodeValue(2);
+		GPNodeOperator top1 = new GPNodeOperator("+", left1, right1);
+		
+		GPNodeValue left2 = new GPNodeValue(3);
+		GPNodeValue right2 = new GPNodeValue(4);
+		GPNodeOperator top2 = new GPNodeOperator("*", left2, right2);
+		
+		GPNodeOperator freeloader = new GPNodeOperator("-", top1, top2);
+		
+		System.out.println("Before Mutation:" + freeloader.GetGPString());
+		GPNode.mutateNodes(freeloader);
+		System.out.println("After Mutation :" + freeloader.GetGPString());
+		
+		System.out.println("***End Test Mutation***");
 	}
 
 	@Test
-	public void testGetGPString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFindNodeReferenceById() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGenerateNode() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCrossoverNodes() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testMutateNodes() {
-		fail("Not yet implemented");
+	public void testCrossover() {
+		System.out.println("\n***Begin Test Crossover***");
+		GPNodeValue left1 = new GPNodeValue("X");
+		GPNodeValue right1 = new GPNodeValue("X");
+		GPNodeOperator top1 = new GPNodeOperator("+", left1, right1);
+		
+		GPNodeValue left2 = new GPNodeValue(5);
+		GPNodeValue right2 = new GPNodeValue(6);
+		GPNodeOperator top2 = new GPNodeOperator("-", left2, right2);
+		GPNodeOperator freeloader = new GPNodeOperator("/", top1, top2);
+		
+		GPNodeValue left1a = new GPNodeValue(1);
+		GPNodeValue right1a = new GPNodeValue(2);
+		GPNodeOperator top1a = new GPNodeOperator("*", left1a, right1a);
+		
+		GPNodeValue left2a = new GPNodeValue(8);
+		GPNodeValue right2a = new GPNodeValue(9);
+		GPNodeOperator top2a = new GPNodeOperator("/", left2a, right2a);
+		GPNodeOperator useless = new GPNodeOperator("+", top1a, top2a);
+		
+		
+		System.out.println("Tree 1 Before Crossover:" + freeloader.GetGPString());
+		System.out.println("Tree 2 Before Crossover:" + useless.GetGPString());
+		GPNode.crossoverNodes(freeloader, useless);
+		System.out.println("Tree 1 After Crossover: " + freeloader.GetGPString());
+		System.out.println("Tree 2 After Crossover: " + useless.GetGPString());
+		
+		System.out.println("***End Test Crossover***");
 	}
 
 }
