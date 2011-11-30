@@ -1,60 +1,81 @@
-package GPFinalProject;
 
 import java.text.NumberFormat;
+/**
+ * Node Value of GP6.
+ * @author Anderson-Chow-Liberty-Osborn-Tran
+ * @version 0.5
+ * @since 11/05/2011
+ */
+public class GPNodeValue extends GPNode {
+    /**
+     * Holds the numerical value of the node.
+     */
+    protected double numericValue;
+    /**
+     * Holds the decision of the variable, or not.
+     */
+    protected boolean isVariable;
+    /**
+     * Holds the variable value as a string.
+     */
+    protected String variableValue;
 
-public class GPNodeValue extends GPNode 
-{
+    /**
+     * Constructor.
+     * @param aNumericValue Nodes value.
+     */
+    public GPNodeValue(final double aNumericValue) {
+        numericValue = aNumericValue;
+        isVariable = false;
+    }
 
-	protected double m_numericValue;
-	protected boolean m_isVariable;
-	protected String m_variableValue;
-	
-	public GPNodeValue(double numericValue)
-	{
-		m_numericValue = numericValue;		
-		m_isVariable = false;
-	}
-	
-	public GPNodeValue(String variableValue)
-	{
-		m_variableValue = variableValue;
-		m_isVariable = true;
-	}
-	
-    public double EvaluateFitnessValue(double x)
-    {
-        if (m_isVariable == true)
-        {
-        	return x;
-        }
-        else
-        {
-        	return m_numericValue;
+    /**
+     * Constructor with parameters.
+     * @param aVariableValue Pre-fill
+     */
+    public GPNodeValue(final String aVariableValue) {
+        variableValue = aVariableValue;
+        isVariable = true;
+    }
+
+    /**
+     * @param x Variable tested.
+     * @return Either parameter or variable value.
+     */
+    public double evaluateFitnessValue(final double x) {
+        if (isVariable == true) {
+            return (x);
+        } else {
+            return (numericValue);
         }
     }
-    
-    public int GetGPDepth()
-    {
-        return 0;
+
+    /**
+     * @return 0
+     */
+    public int getGPDepth() {
+        return (0);
     }
-    
-    public int GetGPNodeCount()
-    {
-    	return 1;
+
+    /**
+     * @return 1
+     */
+    public int getGPNodeCount() {
+        return (1);
     }
-    
-    public String GetGPString()
-    {
-        if (m_isVariable == true)
-        {
-        	return m_variableValue;
-        }
-        else
-        {
-        	NumberFormat nf = NumberFormat.getIntegerInstance();
-        	return nf.format(m_numericValue);
-        	//return Double.toString(m_numericValue);
+
+    /**
+     * @return A string of either the variable or converted value.
+     */
+    public String getGPString() {
+        if (isVariable == true) {
+            return (variableValue);
+        } else {
+            NumberFormat nf = NumberFormat.getIntegerInstance();
+            return (nf.format(numericValue));
+            //return Double.toString(m_numericValue);
         }
     }
 
 }
+
