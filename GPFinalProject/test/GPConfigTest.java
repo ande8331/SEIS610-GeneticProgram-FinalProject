@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import GPFinalProject.Config;
+
 
 public class GPConfigTest {
 	private static Config _config;
@@ -111,10 +111,5 @@ public class GPConfigTest {
 	@Test
 	public void testGetGeneticModel() {
 		assertEquals("(X+1)/2", _config.getGeneticModel());
-	}
-
-	@Test
-	public void testGetTimeLimitation() {
-		assertEquals(1500, _config.getTimeLimitation(), 0.0001);
 	}
 }

@@ -1,5 +1,3 @@
-package GPFinalProject;
-
 public class GPNode
 {
 	public static int operator_probability = 15;
@@ -12,27 +10,27 @@ public class GPNode
 	{
 	}
 
-	public double EvaluateFitnessValue(double x)
+	public double evaluateFitnessValue(double x)
 	{
 		return(1.0);
 	}
 
-	public int GetGPDepth()
+	public int getGPDepth()
 	{
 		return(-1);
 	}
 
-	public int GetGPNodeCount()
+	public int getGPNodeCount()
 	{
 		return(-1);
 	}
 
-	public String GetGPString()
+	public String getGPString()
 	{
 		return("Error creating string.");
 	}
 
-	public GPNode FindNodeReferenceById(int searchID, int currentCount)
+	public GPNode findNodeReferenceById(int searchID, int currentCount)
 	{
 		return(null);
 	}
@@ -44,7 +42,7 @@ public class GPNode
 	}
 	private static GPNode generateNode(int depth)
 	{
-		int num = Utilities.GetRandomNumber(0, 99);
+		int num = Utilities.getRandomNumber(0, 99);
 		// num < 8 to cause 80% probability of an operator, but don't let the tree get more than 6 levels deep
 		// Force the first node to always be an operator
 
@@ -53,14 +51,14 @@ public class GPNode
 		{
 			GPNode left = generateNode(depth + 1);
 			GPNode right = generateNode(depth + 1);
-			num = Utilities.GetRandomNumber(0, 3);
+			num = Utilities.getRandomNumber(0, 3);
 			String operator = operators.substring(num,num+1);
 			GPNodeOperator myNode = new GPNodeOperator(operator, left, right);
 			return(myNode);
 		} 
 		else
 		{
-			num = Utilities.GetRandomNumber(0, 99);
+			num = Utilities.getRandomNumber(0, 99);
 
 			if ( num < operand_x_probability )
 			{
@@ -68,7 +66,7 @@ public class GPNode
 				return(myNode);
 			} else
 			{
-				num = Utilities.GetRandomNumber(random_value_minimum, random_value_maximum);
+				num = Utilities.getRandomNumber(random_value_minimum, random_value_maximum);
 				GPNodeValue myNode = new GPNodeValue(num);
 				return(myNode);
 			}
@@ -77,8 +75,8 @@ public class GPNode
 	public static void crossoverNodes(GPNode g1, GPNode g2)
 	{
 		// Pull random numbers for each to select which node to move
-		int g1NodeID = Utilities.GetRandomNumber(1, g1.GetGPNodeCount());
-		int g2NodeID = Utilities.GetRandomNumber(1, g2.GetGPNodeCount());
+		int g1NodeID = Utilities.getRandomNumber(1, g1.getGPNodeCount());
+		int g2NodeID = Utilities.getRandomNumber(1, g2.getGPNodeCount());
 
 		int g1Counter = 1;
 		boolean g1Left = true;
@@ -97,20 +95,20 @@ public class GPNode
 				g1Left = true;
 				break;
 			} 
-			else if ( gpOper1.GetLeftNode().GetGPNodeCount() + g1Counter == g1NodeID )
+			else if ( gpOper1.getLeftNode().getGPNodeCount() + g1Counter == g1NodeID )
 			{
 				g1Left = false;
 				break;
 			} 
-			else if ( gpOper1.GetLeftNode().GetGPNodeCount() + g1Counter > g1NodeID )
+			else if ( gpOper1.getLeftNode().getGPNodeCount() + g1Counter > g1NodeID )
 			{
-				g1 = gpOper1.GetLeftNode();
+				g1 = gpOper1.getLeftNode();
 				g1Counter++;
 			} 
 			else
 			{
-				g1 = gpOper1.GetRightNode();
-				g1Counter += gpOper1.GetLeftNode().GetGPNodeCount() + 1;
+				g1 = gpOper1.getRightNode();
+				g1Counter += gpOper1.getLeftNode().getGPNodeCount() + 1;
 			}
 		}
 
@@ -131,60 +129,60 @@ public class GPNode
 				g2Left = true;
 				break;
 			} 
-			else if ( gpOper2.GetLeftNode().GetGPNodeCount() + g2Counter == g2NodeID )
+			else if ( gpOper2.getLeftNode().getGPNodeCount() + g2Counter == g2NodeID )
 			{
 				g2Left = false;
 				break;
 			} 
-			else if ( gpOper2.GetLeftNode().GetGPNodeCount() + g2Counter > g2NodeID )
+			else if ( gpOper2.getLeftNode().getGPNodeCount() + g2Counter > g2NodeID )
 			{
-				g2 = gpOper2.GetLeftNode();
+				g2 = gpOper2.getLeftNode();
 				g2Counter++;
 			} 
 			else
 			{
-				g2 = gpOper2.GetRightNode();
-				g2Counter += gpOper2.GetLeftNode().GetGPNodeCount() + 1;
+				g2 = gpOper2.getRightNode();
+				g2Counter += gpOper2.getLeftNode().getGPNodeCount() + 1;
 			}
 		}
 
 		/* Setup the ones we want to swap */
-		GPNode g1Tog2 = gpOper1.GetLeftNode();
+		GPNode g1Tog2 = gpOper1.getLeftNode();
 		if ( g1Left == false )
 		{
-			g1Tog2 = gpOper1.GetRightNode();
+			g1Tog2 = gpOper1.getRightNode();
 		}
 
-		GPNode g2Tog1 = gpOper2.GetLeftNode();
+		GPNode g2Tog1 = gpOper2.getLeftNode();
 		if ( g2Left == false )
 		{
-			g2Tog1 = gpOper2.GetRightNode();
+			g2Tog1 = gpOper2.getRightNode();
 		}
 
 
 		/* Do the actual swap */
 		if ( g1Left == true )
 		{
-			gpOper1.SetLeftNode(g2Tog1);
+			gpOper1.setLeftNode(g2Tog1);
 		} 
 		else
 		{
-			gpOper1.SetRightNode(g2Tog1);
+			gpOper1.setRightNode(g2Tog1);
 		}
 
 		if ( g2Left == true )
 		{
-			gpOper2.SetLeftNode(g1Tog2);
+			gpOper2.setLeftNode(g1Tog2);
 		} 
 		else
 		{
-			gpOper2.SetRightNode(g1Tog2);
+			gpOper2.setRightNode(g1Tog2);
 		}           
 	}
 	
 	public static void mutateNodes(GPNode g1)
 	{
-		int g1NodeID = Utilities.GetRandomNumber(1, g1.GetGPNodeCount());
+		int g1NodeID = Utilities.getRandomNumber(1, g1.getGPNodeCount());
 
 		int g1Counter = 1;
 		boolean g1Left = true;
@@ -205,21 +203,21 @@ public class GPNode
 				g1Left = true;
 				break;
 			} 
-			else if ( gpOper1.GetLeftNode().GetGPNodeCount() + g1Counter == g1NodeID )
+			else if ( gpOper1.getLeftNode().getGPNodeCount() + g1Counter == g1NodeID )
 			{
 				g1Left = false;
 				break;
 			} 
-			else if ( gpOper1.GetLeftNode().GetGPNodeCount() + g1Counter > g1NodeID )
+			else if ( gpOper1.getLeftNode().getGPNodeCount() + g1Counter > g1NodeID )
 			{
-				g1 = gpOper1.GetLeftNode();
+				g1 = gpOper1.getLeftNode();
 				g1Counter++;
 				g1Depth++;
 			} 
 			else
 			{
-				g1 = gpOper1.GetRightNode();
-				g1Counter += gpOper1.GetLeftNode().GetGPNodeCount() + 1;
+				g1 = gpOper1.getRightNode();
+				g1Counter += gpOper1.getLeftNode().getGPNodeCount() + 1;
 				g1Depth++;
 			}
 		}
@@ -227,11 +225,11 @@ public class GPNode
 		GPNode tempNode = generateNode(g1Depth);
 		if ( g1Left == true )
 		{
-			gpOper1.SetLeftNode(tempNode);
+			gpOper1.setLeftNode(tempNode);
 		} 
 		else
 		{
-			gpOper1.SetRightNode(tempNode);
+			gpOper1.setRightNode(tempNode);
 		}
 	}
 }

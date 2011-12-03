@@ -2,9 +2,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import GPFinalProject.GPNode;
-import GPFinalProject.GPNodeOperator;
-import GPFinalProject.GPNodeValue;
 
 
 public class GPNodeTest {
@@ -29,13 +26,13 @@ public class GPNodeTest {
 		
 		GPNodeOperator top = new GPNodeOperator("-", topleft, topright);
 		
-		double result = top.EvaluateFitnessValue(2);
+		double result = top.evaluateFitnessValue(2);
 		assertEquals("Evaluate (1+2) + (3*4) - (X/2) when X=2:", 14, result, 0.0001);
 		
-		result = top.EvaluateFitnessValue(4);
+		result = top.evaluateFitnessValue(4);
 		assertEquals("Evaluate (1+2) + (3*4) - (X/2) when X=4:", 13, result, 0.0001);
 		
-		result = top.EvaluateFitnessValue(100);
+		result = top.evaluateFitnessValue(100);
 		assertEquals("Evaluate (1+2) + (3*4) - (X/2) when X100:", -35, result, 0.0001);
 	}
 
@@ -45,15 +42,15 @@ public class GPNodeTest {
 		GPNodeValue left1 = new GPNodeValue(-10);
 		GPNodeValue right1 = new GPNodeValue(7);
 		GPNodeOperator top1 = new GPNodeOperator("+", left1, right1);
-		assertEquals("Test tree that is a depth of 1.", 1, top1.GetGPDepth());
+		assertEquals("Test tree that is a depth of 1.", 1, top1.getGPDepth());
 		
 		GPNodeValue left2 = new GPNodeValue("X");
 		GPNodeOperator top2 = new GPNodeOperator("*", left2, top1);
-		assertEquals("Test tree that is a depth of 2.", 2, top2.GetGPDepth());
+		assertEquals("Test tree that is a depth of 2.", 2, top2.getGPDepth());
 		
 		GPNodeValue right2 = new GPNodeValue(9);
 		GPNodeOperator top3 = new GPNodeOperator("/", top2, right2);
-		assertEquals("Test tree that is a depth of 3.", 3, top3.GetGPDepth());
+		assertEquals("Test tree that is a depth of 3.", 3, top3.getGPDepth());
 	}
 	
 	@Test
@@ -66,9 +63,9 @@ public class GPNodeTest {
 		{
 			temp = GPNode.generateNode();
 			
-			if (temp.GetGPDepth() > 10)
+			if (temp.getGPDepth() > 10)
 			{
-				fail("GPNode depth exceeded maximum configured value of: " + maxDepth + " Depth found: " + temp.GetGPDepth());
+				fail("GPNode depth exceeded maximum configured value of: " + maxDepth + " Depth found: " + temp.getGPDepth());
 			}
 		}
 	}
@@ -101,9 +98,9 @@ public class GPNodeTest {
 		
 		GPNodeOperator freeloader = new GPNodeOperator("-", top1, top2);
 		
-		System.out.println("Before Mutation:" + freeloader.GetGPString());
+		System.out.println("Before Mutation:" + freeloader.getGPString());
 		GPNode.mutateNodes(freeloader);
-		System.out.println("After Mutation :" + freeloader.GetGPString());
+		System.out.println("After Mutation :" + freeloader.getGPString());
 		
 		System.out.println("***End Test Mutation***");
 	}
@@ -130,14 +127,13 @@ public class GPNodeTest {
 		GPNodeOperator useless = new GPNodeOperator("+", top1a, top2a);
 		
 		
-		System.out.println("Tree 1 Before Crossover:" + freeloader.GetGPString());
-		System.out.println("Tree 2 Before Crossover:" + useless.GetGPString());
+		System.out.println("Tree 1 Before Crossover:" + freeloader.getGPString());
+		System.out.println("Tree 2 Before Crossover:" + useless.getGPString());
 		GPNode.crossoverNodes(freeloader, useless);
-		System.out.println("Tree 1 After Crossover: " + freeloader.GetGPString());
-		System.out.println("Tree 2 After Crossover: " + useless.GetGPString());
+		System.out.println("Tree 1 After Crossover: " + freeloader.getGPString());
+		System.out.println("Tree 2 After Crossover: " + useless.getGPString());
 		
 		System.out.println("***End Test Crossover***");
 	}
-
 }
 

@@ -4,9 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import GPFinalProject.GPCandidate;
-import GPFinalProject.GPNodeOperator;
-import GPFinalProject.GPNodeValue;
 
 public class GPCandidateTest {
 

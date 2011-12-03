@@ -2,7 +2,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import GPFinalProject.Utilities;
 
 
 public class GPUtilitiesTest {
@@ -16,7 +15,7 @@ public class GPUtilitiesTest {
 		for (int i = 0; i < 1000; i++)
 		{
 			
-			int temp = Utilities.GetRandomNumber(minimum, maximum);
+			int temp = Utilities.getRandomNumber(minimum, maximum);
 			
 			if ((temp < minimum) || (temp > maximum))
 			{

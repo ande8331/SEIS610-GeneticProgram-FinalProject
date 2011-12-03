@@ -1,10 +1,5 @@
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-import GPFinalProject.GPNodeOperator;
-import GPFinalProject.GPNodeValue;
-
 
 public class GPNodeOperatorTest {
 
@@ -14,7 +9,7 @@ public class GPNodeOperatorTest {
 		GPNodeValue left = new GPNodeValue(5);
 		GPNodeValue right = new GPNodeValue(0);
 		GPNodeOperator top = new GPNodeOperator("/", left, right);
-		assertEquals("Result of against 5 divide by 0", Double.MAX_VALUE, top.EvaluateFitnessValue(-5), .01);
+		assertEquals("Result of against 5 divide by 0", Double.MAX_VALUE, top.evaluateFitnessValue(-5), .01);
 	}
 
 	@Test 
@@ -26,15 +21,15 @@ public class GPNodeOperatorTest {
 		GPNodeValue left = new GPNodeValue(-10);
 		GPNodeValue right = new GPNodeValue(7);
 		GPNodeOperator top = new GPNodeOperator("+", left, right);
-		assertEquals("Result creating plus node with -10 and 7", -3, top.EvaluateFitnessValue(-5), .01);
+		assertEquals("Result creating plus node with -10 and 7", -3, top.evaluateFitnessValue(-5), .01);
 
 		top = new GPNodeOperator("-", left, right);
-		assertEquals("Result creating minus node with -10 and 7", -17, top.EvaluateFitnessValue(-5), .01);
+		assertEquals("Result creating minus node with -10 and 7", -17, top.evaluateFitnessValue(-5), .01);
 
 		top = new GPNodeOperator("*", left, right);
-		assertEquals("Result creating multiply node with -10 and 7", -70, top.EvaluateFitnessValue(-5), .01);
+		assertEquals("Result creating multiply node with -10 and 7", -70, top.evaluateFitnessValue(-5), .01);
 		
 		top = new GPNodeOperator("/", left, right);
-		assertEquals("Result creating divide node with -10 and 7", -1.42857143, top.EvaluateFitnessValue(-5), .01);
+		assertEquals("Result creating divide node with -10 and 7", -1.42857143, top.evaluateFitnessValue(-5), .01);
 	}
 }
