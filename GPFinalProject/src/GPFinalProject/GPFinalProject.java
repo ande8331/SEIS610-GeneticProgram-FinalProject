@@ -85,7 +85,7 @@ public class GPFinalProject {
         double [] expectedValues = new double[trainingData.length];
 EXPECTED_VALUES_BREAKPOINT:		
         for (int i = 0; i < expectedValues.length; i++) {
-            expectedValues[i] = (trainingData[i] * trainingData[i]) - 1;
+            expectedValues[i] = ((trainingData[i] * trainingData[i]) + 3) / 2;
 			System.out.println("X value: " + trainingData[i] + "; Output:" + expectedValues[i]);
         }
 
