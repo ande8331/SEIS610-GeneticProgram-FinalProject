@@ -1,3 +1,5 @@
+package GPFinalProject;
+
 import java.util.Random;
 /**
  * @author Anderson-Chow-Liberty-Osborn-Tran

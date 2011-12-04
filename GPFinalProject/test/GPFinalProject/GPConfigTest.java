@@ -1,5 +1,6 @@
-import static org.junit.Assert.*;
+package GPFinalProject;
 
+import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class GPConfigTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {	
 		_config = new Config();
-		_config.initializeData("test/GP_Config.txt", "=");
+		_config.initializeData("test/GPFinalProject/GP_Config.txt", "=");
 	}
 
 	@AfterClass
