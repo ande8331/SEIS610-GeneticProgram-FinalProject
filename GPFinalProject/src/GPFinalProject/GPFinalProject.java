@@ -126,7 +126,7 @@ EXPECTED_VALUES_BREAKPOINT:
 //CANDIDATE_FOUND_BREAKPOINT:			
             double fitnessValue = gpCandidates.get(0).getFitnessValue();
             if (fitnessValue < 0.000001) {
-                System.out.println("Generation:" + i + ": Candidate found. String is: " + gpCandidates.get(0).candidate.getGPString());
+                System.out.println("Generation:" + i + " Candidate found! String is: " + gpCandidates.get(0).candidate.getGPString());
                 return;
             }
 
