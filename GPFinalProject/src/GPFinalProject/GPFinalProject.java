@@ -90,7 +90,7 @@ EXPECTED_VALUES_BREAKPOINT:
         }
 
 		System.out.println("");
-		System.out.println("***Training Data***");
+		System.out.println("***List out each candidate***");
 		
         /* Create the candidates */
         for (int i = 0; i < numCandidates; i++) {
@@ -108,6 +108,8 @@ EXPECTED_VALUES_BREAKPOINT:
         double mutationCarryOver = 0.0;
         double naturalSelectionCarryOver = 0.0;
 
+        System.out.println("");
+        System.out.println("***Candidate with the best fitness value of each generation will be output below.***");
         for (int i = 0; i < maxNumberOfGenerations; i++) {
             // Need to rank the candidates
             Collections.sort(gpCandidates, new GPFitnessValueComparator());
